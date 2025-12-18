@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>QR Scanner - Chrome Extension for Packing Videos</title>
+    <meta name="description" content="QR Scanner Chrome Extension - Scan QR codes and record packing videos automatically. Free download.">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+            min-height: 100vh;
+            color: #fff;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        /* Header */
+        header {
+            text-align: center;
+            padding: 60px 20px;
+        }
+        
+        .logo {
+            font-size: 64px;
+            margin-bottom: 20px;
+        }
+        
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 15px;
+            background: linear-gradient(90deg, #00d4ff, #7b2cbf);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .tagline {
+            font-size: 1.2rem;
+            color: #a0a0a0;
+            margin-bottom: 30px;
+        }
+        
+        /* CTA Button */
+        .cta-button {
+            display: inline-block;
+            padding: 15px 40px;
+            background: linear-gradient(90deg, #00d4ff, #7b2cbf);
+            color: #fff;
+            text-decoration: none;
+            border-radius: 30px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        
+        .cta-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(0, 212, 255, 0.3);
+        }
+        
+        /* Features */
+        .features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+            padding: 60px 20px;
+        }
+        
+        .feature-card {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 20px;
+            padding: 30px;
+            text-align: center;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: transform 0.3s;
+        }
+        
+        .feature-card:hover {
+            transform: translateY(-5px);
+            background: rgba(255, 255, 255, 0.08);
+        }
+        
+        .feature-icon {
+            font-size: 48px;
+            margin-bottom: 20px;
+        }
+        
+        .feature-card h3 {
+            font-size: 1.3rem;
+            margin-bottom: 10px;
+            color: #00d4ff;
+        }
+        
+        .feature-card p {
+            color: #a0a0a0;
+            line-height: 1.6;
+        }
+        
+        /* How it works */
+        .how-it-works {
+            padding: 60px 20px;
+            text-align: center;
+        }
+        
+        .how-it-works h2 {
+            font-size: 2rem;
+            margin-bottom: 40px;
+            color: #00d4ff;
+        }
+        
+        .steps {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 30px;
+        }
+        
+        .step {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 15px;
+            padding: 25px;
+            width: 200px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .step-number {
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(90deg, #00d4ff, #7b2cbf);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            margin: 0 auto 15px;
+        }
+        
+        .step h4 {
+            margin-bottom: 10px;
+        }
+        
+        .step p {
+            font-size: 0.9rem;
+            color: #a0a0a0;
+        }
+        
+        /* Specs */
+        .specs {
+            padding: 60px 20px;
+            background: rgba(0, 0, 0, 0.2);
+        }
+        
+        .specs h2 {
+            text-align: center;
+            font-size: 2rem;
+            margin-bottom: 40px;
+            color: #00d4ff;
+        }
+        
+        .specs-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .spec-item {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 10px;
+            padding: 20px;
+            text-align: center;
+        }
+        
+        .spec-item .value {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #00d4ff;
+        }
+        
+        .spec-item .label {
+            color: #a0a0a0;
+            font-size: 0.9rem;
+        }
+        
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 40px 20px;
+            color: #666;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        footer a {
+            color: #00d4ff;
+            text-decoration: none;
+        }
+        
+        /* Ad placeholder */
+        .ad-container {
+            max-width: 728px;
+            margin: 30px auto;
+            text-align: center;
+            min-height: 90px;
+        }
+        
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 1.8rem;
+            }
+            
+            .tagline {
+                font-size: 1rem;
+            }
+            
+            .features {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <header>
+            <div class="logo">📷</div>
+            <h1>QR Scanner Extension</h1>
+            <p class="tagline">Scan QR codes & Record packing videos automatically</p>
+            <a href="#download" class="cta-button">🚀 Download Free</a>
+        </header>
+        
+        <!-- Ad Banner Top -->
+        <div class="ad-container" id="ad-top">
+            <!-- Adsterra Banner Code Here -->
+        </div>
+        
+        <!-- Features -->
+        <section class="features">
+            <div class="feature-card">
+                <div class="feature-icon">📱</div>
+                <h3>QR Code Scanning</h3>
+                <p>Automatically detect and scan QR codes from your webcam in real-time.</p>
+            </div>
+            
+            <div class="feature-card">
+                <div class="feature-icon">🎥</div>
+                <h3>Video Recording</h3>
+                <p>Record Full HD videos at 30fps or 60fps with customizable bitrate.</p>
+            </div>
+            
+            <div class="feature-card">
+                <div class="feature-icon">⚡</div>
+                <h3>Auto Save</h3>
+                <p>Videos are automatically saved with QR code data as filename.</p>
+            </div>
+            
+            <div class="feature-card">
+                <div class="feature-icon">📊</div>
+                <h3>Order Tracking</h3>
+                <p>Track all scanned orders with timestamps and video links.</p>
+            </div>
+        </section>
+        
+        <!-- How it works -->
+        <section class="how-it-works">
+            <h2>How It Works</h2>
+            <div class="steps">
+                <div class="step">
+                    <div class="step-number">1</div>
+                    <h4>Install</h4>
+                    <p>Add extension to Chrome browser</p>
+                </div>
+                <div class="step">
+                    <div class="step-number">2</div>
+                    <h4>Connect</h4>
+                    <p>Select your webcam</p>
+                </div>
+                <div class="step">
+                    <div class="step-number">3</div>
+                    <h4>Scan</h4>
+                    <p>Show QR code to camera</p>
+                </div>
+                <div class="step">
+                    <div class="step-number">4</div>
+                    <h4>Done</h4>
+                    <p>Video saved automatically</p>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Specs -->
+        <section class="specs">
+            <h2>Specifications</h2>
+            <div class="specs-grid">
+                <div class="spec-item">
+                    <div class="value">1080p</div>
+                    <div class="label">Full HD Resolution</div>
+                </div>
+                <div class="spec-item">
+                    <div class="value">60fps</div>
+                    <div class="label">Frame Rate</div>
+                </div>
+                <div class="spec-item">
+                    <div class="value">12Mbps</div>
+                    <div class="label">Video Bitrate</div>
+                </div>
+                <div class="spec-item">
+                    <div class="value">WebM</div>
+                    <div class="label">Video Format</div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Ad Banner Bottom -->
+        <div class="ad-container" id="ad-bottom">
+            <!-- Adsterra Banner Code Here -->
+        </div>
+        
+        <!-- Footer -->
+        <footer>
+            <p>© 2024 QR Scanner Extension. All rights reserved.</p>
+            <p style="margin-top: 10px;">
+                <a href="#privacy">Privacy Policy</a> | 
+                <a href="#terms">Terms of Service</a> | 
+                <a href="#contact">Contact</a>
+            </p>
+        </footer>
+    </div>
+</body>
+</html>
