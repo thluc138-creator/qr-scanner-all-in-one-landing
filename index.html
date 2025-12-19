@@ -3,8 +3,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>QR Scanner - Chrome Extension for Packing Videos</title>
-    <meta name="description" content="QR Scanner Chrome Extension - Scan QR codes and record packing videos automatically. Free download.">
+    
+    <!-- HilltopAds Verification -->
+    <meta name="fec7a0b849ce5dd6d1be90701ff06624f38e7a62" content="fec7a0b849ce5dd6d1be90701ff06624f38e7a62" />
+    <meta name="referrer" content="no-referrer-when-downgrade" />
+    
+    <title>QR Scanner Video Recording System - Giải pháp đóng gói cho Seller</title>
+    <meta name="description" content="Hệ thống quét QR và quay video đóng gói đơn hàng cho người bán hàng Shopee, TikTok Shop, Lazada. Chứng minh đóng hàng, giảm tranh chấp.">
+    <meta name="keywords" content="QR Scanner, Video Recording, Shopee, TikTok Shop, đóng gói, seller tools, e-commerce">
+    
     <style>
         * {
             margin: 0;
@@ -14,328 +21,599 @@
         
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
-            min-height: 100vh;
-            color: #fff;
-        }
-        
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 20px;
+            line-height: 1.6;
+            color: #333;
+            background: #f5f7fa;
         }
         
         /* Header */
-        header {
-            text-align: center;
-            padding: 60px 20px;
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 20px 0;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 20px rgba(0,0,0,0.1);
+        }
+        
+        .header-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
         }
         
         .logo {
-            font-size: 64px;
-            margin-bottom: 20px;
+            font-size: 24px;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            gap: 10px;
         }
         
-        h1 {
-            font-size: 2.5rem;
-            margin-bottom: 15px;
-            background: linear-gradient(90deg, #00d4ff, #7b2cbf);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
+        .logo-icon {
+            font-size: 32px;
         }
         
-        .tagline {
-            font-size: 1.2rem;
-            color: #a0a0a0;
-            margin-bottom: 30px;
-        }
-        
-        /* CTA Button */
-        .cta-button {
-            display: inline-block;
-            padding: 15px 40px;
-            background: linear-gradient(90deg, #00d4ff, #7b2cbf);
-            color: #fff;
+        .nav-btn {
+            background: white;
+            color: #667eea;
+            padding: 10px 25px;
+            border-radius: 25px;
             text-decoration: none;
-            border-radius: 30px;
-            font-size: 1.1rem;
             font-weight: bold;
             transition: transform 0.3s, box-shadow 0.3s;
         }
         
-        .cta-button:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 10px 30px rgba(0, 212, 255, 0.3);
+        .nav-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 20px rgba(0,0,0,0.2);
         }
         
-        /* Features */
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 150px 20px 100px;
+            text-align: center;
+        }
+        
+        .hero h1 {
+            font-size: 48px;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+        }
+        
+        .hero p {
+            font-size: 20px;
+            max-width: 700px;
+            margin: 0 auto 30px;
+            opacity: 0.95;
+        }
+        
+        .hero-buttons {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+        
+        .btn-primary {
+            background: white;
+            color: #667eea;
+            padding: 15px 40px;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 18px;
+            transition: transform 0.3s, box-shadow 0.3s;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        }
+        
+        .btn-secondary {
+            background: transparent;
+            color: white;
+            border: 2px solid white;
+            padding: 15px 40px;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 18px;
+            transition: all 0.3s;
+        }
+        
+        .btn-secondary:hover {
+            background: white;
+            color: #667eea;
+        }
+        
+        /* Features Section */
         .features {
+            padding: 80px 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .section-title {
+            text-align: center;
+            font-size: 36px;
+            margin-bottom: 50px;
+            color: #333;
+        }
+        
+        .features-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
             gap: 30px;
-            padding: 60px 20px;
         }
         
         .feature-card {
-            background: rgba(255, 255, 255, 0.05);
+            background: white;
+            padding: 40px 30px;
             border-radius: 20px;
-            padding: 30px;
             text-align: center;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            transition: transform 0.3s;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.08);
+            transition: transform 0.3s, box-shadow 0.3s;
         }
         
         .feature-card:hover {
-            transform: translateY(-5px);
-            background: rgba(255, 255, 255, 0.08);
+            transform: translateY(-10px);
+            box-shadow: 0 20px 50px rgba(0,0,0,0.15);
         }
         
         .feature-icon {
-            font-size: 48px;
+            font-size: 60px;
             margin-bottom: 20px;
         }
         
         .feature-card h3 {
-            font-size: 1.3rem;
-            margin-bottom: 10px;
-            color: #00d4ff;
+            font-size: 22px;
+            margin-bottom: 15px;
+            color: #333;
         }
         
         .feature-card p {
-            color: #a0a0a0;
-            line-height: 1.6;
+            color: #666;
+            font-size: 16px;
         }
         
-        /* How it works */
+        /* How It Works */
         .how-it-works {
-            padding: 60px 20px;
-            text-align: center;
-        }
-        
-        .how-it-works h2 {
-            font-size: 2rem;
-            margin-bottom: 40px;
-            color: #00d4ff;
+            background: white;
+            padding: 80px 20px;
         }
         
         .steps {
-            display: flex;
-            justify-content: center;
-            flex-wrap: wrap;
-            gap: 30px;
+            max-width: 1000px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
         }
         
         .step {
-            background: rgba(255, 255, 255, 0.05);
-            border-radius: 15px;
-            padding: 25px;
-            width: 200px;
-            border: 1px solid rgba(255, 255, 255, 0.1);
+            text-align: center;
+            position: relative;
         }
         
         .step-number {
-            width: 40px;
-            height: 40px;
-            background: linear-gradient(90deg, #00d4ff, #7b2cbf);
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
+            font-size: 24px;
             font-weight: bold;
-            margin: 0 auto 15px;
+            margin: 0 auto 20px;
         }
         
-        .step h4 {
+        .step h3 {
+            font-size: 20px;
             margin-bottom: 10px;
+            color: #333;
         }
         
         .step p {
-            font-size: 0.9rem;
-            color: #a0a0a0;
+            color: #666;
         }
         
-        /* Specs */
-        .specs {
-            padding: 60px 20px;
-            background: rgba(0, 0, 0, 0.2);
+        /* Benefits */
+        .benefits {
+            padding: 80px 20px;
+            background: linear-gradient(135deg, #f5f7fa 0%, #e4e8f0 100%);
         }
         
-        .specs h2 {
-            text-align: center;
-            font-size: 2rem;
-            margin-bottom: 40px;
-            color: #00d4ff;
-        }
-        
-        .specs-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 20px;
+        .benefits-list {
             max-width: 800px;
             margin: 0 auto;
         }
         
-        .spec-item {
-            background: rgba(255, 255, 255, 0.05);
-            border-radius: 10px;
-            padding: 20px;
+        .benefit-item {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            background: white;
+            padding: 25px 30px;
+            border-radius: 15px;
+            margin-bottom: 20px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.05);
+        }
+        
+        .benefit-icon {
+            font-size: 40px;
+            flex-shrink: 0;
+        }
+        
+        .benefit-item h4 {
+            font-size: 18px;
+            color: #333;
+            margin-bottom: 5px;
+        }
+        
+        .benefit-item p {
+            color: #666;
+            font-size: 14px;
+        }
+        
+        /* Pricing */
+        .pricing {
+            padding: 80px 20px;
             text-align: center;
         }
         
-        .spec-item .value {
-            font-size: 1.5rem;
-            font-weight: bold;
-            color: #00d4ff;
+        .pricing-cards {
+            display: flex;
+            gap: 30px;
+            justify-content: center;
+            flex-wrap: wrap;
+            max-width: 900px;
+            margin: 0 auto;
         }
         
-        .spec-item .label {
-            color: #a0a0a0;
-            font-size: 0.9rem;
+        .pricing-card {
+            background: white;
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.1);
+            flex: 1;
+            min-width: 280px;
+            max-width: 400px;
+        }
+        
+        .pricing-card.featured {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            transform: scale(1.05);
+        }
+        
+        .pricing-card h3 {
+            font-size: 24px;
+            margin-bottom: 10px;
+        }
+        
+        .price {
+            font-size: 48px;
+            font-weight: bold;
+            margin: 20px 0;
+        }
+        
+        .price span {
+            font-size: 16px;
+            font-weight: normal;
+        }
+        
+        .pricing-features {
+            list-style: none;
+            text-align: left;
+            margin: 30px 0;
+        }
+        
+        .pricing-features li {
+            padding: 10px 0;
+            border-bottom: 1px solid rgba(0,0,0,0.1);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .pricing-card.featured .pricing-features li {
+            border-bottom-color: rgba(255,255,255,0.2);
+        }
+        
+        /* Platforms */
+        .platforms {
+            background: white;
+            padding: 60px 20px;
+            text-align: center;
+        }
+        
+        .platform-logos {
+            display: flex;
+            justify-content: center;
+            gap: 50px;
+            flex-wrap: wrap;
+            margin-top: 30px;
+        }
+        
+        .platform {
+            font-size: 24px;
+            font-weight: bold;
+            color: #666;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        /* CTA Section */
+        .cta {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 80px 20px;
+            text-align: center;
+        }
+        
+        .cta h2 {
+            font-size: 36px;
+            margin-bottom: 20px;
+        }
+        
+        .cta p {
+            font-size: 18px;
+            margin-bottom: 30px;
+            opacity: 0.95;
         }
         
         /* Footer */
-        footer {
-            text-align: center;
+        .footer {
+            background: #1a1a2e;
+            color: white;
             padding: 40px 20px;
-            color: #666;
-            border-top: 1px solid rgba(255, 255, 255, 0.1);
-        }
-        
-        footer a {
-            color: #00d4ff;
-            text-decoration: none;
-        }
-        
-        /* Ad placeholder */
-        .ad-container {
-            max-width: 728px;
-            margin: 30px auto;
             text-align: center;
-            min-height: 90px;
         }
         
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+        
+        .footer-links a {
+            color: #aaa;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        
+        .footer-links a:hover {
+            color: white;
+        }
+        
+        .copyright {
+            color: #666;
+            font-size: 14px;
+        }
+        
+        /* Responsive */
         @media (max-width: 768px) {
-            h1 {
-                font-size: 1.8rem;
+            .hero h1 {
+                font-size: 32px;
             }
             
-            .tagline {
-                font-size: 1rem;
+            .hero p {
+                font-size: 16px;
             }
             
-            .features {
-                grid-template-columns: 1fr;
+            .section-title {
+                font-size: 28px;
+            }
+            
+            .pricing-card.featured {
+                transform: scale(1);
             }
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <!-- Header -->
-        <header>
-            <div class="logo">📷</div>
-            <h1>QR Scanner Extension</h1>
-            <p class="tagline">Scan QR codes & Record packing videos automatically</p>
-            <a href="#download" class="cta-button">🚀 Download Free</a>
-        </header>
-        
-        <!-- Ad Banner Top -->
-        <div class="ad-container" id="ad-top">
-            <!-- Adsterra Banner Code Here -->
+    <!-- Header -->
+    <header class="header">
+        <div class="header-container">
+            <div class="logo">
+                <span class="logo-icon">📦</span>
+                <span>QR Scanner Pro</span>
+            </div>
+            <a href="https://chromewebstore.google.com" target="_blank" class="nav-btn">Cài đặt miễn phí</a>
         </div>
-        
-        <!-- Features -->
-        <section class="features">
+    </header>
+    
+    <!-- Hero Section -->
+    <section class="hero">
+        <h1>🎥 QR Scanner Video Recording System</h1>
+        <p>Giải pháp quét QR và quay video đóng gói đơn hàng cho người bán hàng online. Chứng minh đóng hàng đúng, giảm tranh chấp với khách hàng.</p>
+        <div class="hero-buttons">
+            <a href="https://chromewebstore.google.com" class="btn-primary">
+                <span>🚀</span> Cài đặt Chrome Extension
+            </a>
+            <a href="#features" class="btn-secondary">Tìm hiểu thêm</a>
+        </div>
+    </section>
+    
+    <!-- Features Section -->
+    <section class="features" id="features">
+        <h2 class="section-title">✨ Tính năng nổi bật</h2>
+        <div class="features-grid">
             <div class="feature-card">
-                <div class="feature-icon">📱</div>
-                <h3>QR Code Scanning</h3>
-                <p>Automatically detect and scan QR codes from your webcam in real-time.</p>
+                <div class="feature-icon">📷</div>
+                <h3>Quét QR Code tự động</h3>
+                <p>Nhận diện mã QR đơn hàng từ Shopee, TikTok Shop, Lazada nhanh chóng và chính xác.</p>
             </div>
-            
             <div class="feature-card">
-                <div class="feature-icon">🎥</div>
-                <h3>Video Recording</h3>
-                <p>Record Full HD videos at 30fps or 60fps with customizable bitrate.</p>
+                <div class="feature-icon">🎬</div>
+                <h3>Quay video Full HD</h3>
+                <p>Ghi hình quá trình đóng gói với chất lượng Full HD 1080p, 30/60fps, bitrate lên đến 12Mbps.</p>
             </div>
-            
             <div class="feature-card">
                 <div class="feature-icon">⚡</div>
-                <h3>Auto Save</h3>
-                <p>Videos are automatically saved with QR code data as filename.</p>
+                <h3>Tự động bắt đầu/dừng</h3>
+                <p>Video tự động bắt đầu khi quét QR và dừng sau thời gian cài đặt. Tiết kiệm thao tác.</p>
             </div>
-            
             <div class="feature-card">
                 <div class="feature-icon">📊</div>
-                <h3>Order Tracking</h3>
-                <p>Track all scanned orders with timestamps and video links.</p>
+                <h3>Xuất Excel báo cáo</h3>
+                <p>Lịch sử quét QR được lưu trữ và có thể xuất ra Excel để quản lý.</p>
             </div>
-        </section>
-        
-        <!-- How it works -->
-        <section class="how-it-works">
-            <h2>How It Works</h2>
-            <div class="steps">
-                <div class="step">
-                    <div class="step-number">1</div>
-                    <h4>Install</h4>
-                    <p>Add extension to Chrome browser</p>
-                </div>
-                <div class="step">
-                    <div class="step-number">2</div>
-                    <h4>Connect</h4>
-                    <p>Select your webcam</p>
-                </div>
-                <div class="step">
-                    <div class="step-number">3</div>
-                    <h4>Scan</h4>
-                    <p>Show QR code to camera</p>
-                </div>
-                <div class="step">
-                    <div class="step-number">4</div>
-                    <h4>Done</h4>
-                    <p>Video saved automatically</p>
-                </div>
+            <div class="feature-card">
+                <div class="feature-icon">🔍</div>
+                <h3>Phát hiện gói hàng thất lạc</h3>
+                <p>So sánh với báo cáo Shopee/TikTok để phát hiện đơn hàng bị thất lạc, mất mát.</p>
             </div>
-        </section>
-        
-        <!-- Specs -->
-        <section class="specs">
-            <h2>Specifications</h2>
-            <div class="specs-grid">
-                <div class="spec-item">
-                    <div class="value">1080p</div>
-                    <div class="label">Full HD Resolution</div>
-                </div>
-                <div class="spec-item">
-                    <div class="value">60fps</div>
-                    <div class="label">Frame Rate</div>
-                </div>
-                <div class="spec-item">
-                    <div class="value">12Mbps</div>
-                    <div class="label">Video Bitrate</div>
-                </div>
-                <div class="spec-item">
-                    <div class="value">WebM</div>
-                    <div class="label">Video Format</div>
-                </div>
+            <div class="feature-card">
+                <div class="feature-icon">💾</div>
+                <h3>Lưu trữ video an toàn</h3>
+                <p>Video được lưu trực tiếp vào máy tính, dễ dàng tìm kiếm theo mã đơn hàng.</p>
             </div>
-        </section>
-        
-        <!-- Ad Banner Bottom -->
-        <div class="ad-container" id="ad-bottom">
-            <!-- Adsterra Banner Code Here -->
         </div>
-        
-        <!-- Footer -->
-        <footer>
-            <p>© 2024 QR Scanner Extension. All rights reserved.</p>
-            <p style="margin-top: 10px;">
-                <a href="#privacy">Privacy Policy</a> | 
-                <a href="#terms">Terms of Service</a> | 
-                <a href="#contact">Contact</a>
-            </p>
-        </footer>
-    </div>
+    </section>
+    
+    <!-- How It Works -->
+    <section class="how-it-works">
+        <h2 class="section-title">🔄 Cách hoạt động</h2>
+        <div class="steps">
+            <div class="step">
+                <div class="step-number">1</div>
+                <h3>Cài đặt Extension</h3>
+                <p>Cài đặt QR Scanner Pro từ Chrome Web Store miễn phí</p>
+            </div>
+            <div class="step">
+                <div class="step-number">2</div>
+                <h3>Quét mã QR</h3>
+                <p>Đưa mã QR đơn hàng vào camera, hệ thống tự động nhận diện</p>
+            </div>
+            <div class="step">
+                <div class="step-number">3</div>
+                <h3>Tự động quay video</h3>
+                <p>Video bắt đầu ghi ngay khi quét thành công</p>
+            </div>
+            <div class="step">
+                <div class="step-number">4</div>
+                <h3>Lưu trữ & Xuất báo cáo</h3>
+                <p>Video và dữ liệu được lưu, sẵn sàng khi cần chứng minh</p>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Benefits -->
+    <section class="benefits">
+        <h2 class="section-title">💡 Lợi ích cho Seller</h2>
+        <div class="benefits-list">
+            <div class="benefit-item">
+                <span class="benefit-icon">✅</span>
+                <div>
+                    <h4>Giảm 90% tranh chấp đơn hàng</h4>
+                    <p>Video chứng minh giúp giải quyết khiếu nại nhanh chóng</p>
+                </div>
+            </div>
+            <div class="benefit-item">
+                <span class="benefit-icon">💰</span>
+                <div>
+                    <h4>Đòi bồi thường từ đơn vị vận chuyển</h4>
+                    <p>Có bằng chứng video để yêu cầu bồi thường khi hàng bị hư hỏng</p>
+                </div>
+            </div>
+            <div class="benefit-item">
+                <span class="benefit-icon">⏱️</span>
+                <div>
+                    <h4>Tiết kiệm thời gian đóng gói</h4>
+                    <p>Quy trình tự động, không cần thao tác thủ công</p>
+                </div>
+            </div>
+            <div class="benefit-item">
+                <span class="benefit-icon">📈</span>
+                <div>
+                    <h4>Quản lý đơn hàng hiệu quả</h4>
+                    <p>Theo dõi tiến độ đóng gói, phát hiện đơn thất lạc</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Pricing -->
+    <section class="pricing">
+        <h2 class="section-title">💎 Bảng giá</h2>
+        <div class="pricing-cards">
+            <div class="pricing-card">
+                <h3>🆓 Miễn phí</h3>
+                <div class="price">0đ <span>/tháng</span></div>
+                <ul class="pricing-features">
+                    <li>✅ 30 lần quét/ngày</li>
+                    <li>✅ Quay video HD 720p</li>
+                    <li>✅ Lưu lịch sử 7 ngày</li>
+                    <li>✅ Xuất Excel cơ bản</li>
+                    <li>❌ Quay video Full HD</li>
+                    <li>❌ Phát hiện gói thất lạc</li>
+                </ul>
+                <a href="https://chromewebstore.google.com" class="btn-primary" style="width: 100%; justify-content: center;">Bắt đầu miễn phí</a>
+            </div>
+            <div class="pricing-card featured">
+                <h3>⭐ Premium</h3>
+                <div class="price">365.000đ <span>/năm</span></div>
+                <ul class="pricing-features">
+                    <li>✅ Quét không giới hạn</li>
+                    <li>✅ Quay video Full HD 1080p</li>
+                    <li>✅ 60fps, bitrate 12Mbps</li>
+                    <li>✅ Lưu lịch sử vĩnh viễn</li>
+                    <li>✅ Phát hiện gói thất lạc</li>
+                    <li>✅ Hỗ trợ ưu tiên 24/7</li>
+                </ul>
+                <a href="#" class="btn-primary" style="width: 100%; justify-content: center; background: white; color: #667eea;">Nâng cấp Premium</a>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Platforms -->
+    <section class="platforms">
+        <h2 class="section-title">🛒 Hỗ trợ các sàn TMĐT</h2>
+        <div class="platform-logos">
+            <div class="platform">🧡 Shopee</div>
+            <div class="platform">🎵 TikTok Shop</div>
+            <div class="platform">🔵 Lazada</div>
+            <div class="platform">💚 Sendo</div>
+        </div>
+    </section>
+    
+    <!-- CTA Section -->
+    <section class="cta">
+        <h2>🚀 Bắt đầu sử dụng ngay hôm nay!</h2>
+        <p>Hơn 10,000+ seller đã tin dùng QR Scanner Pro</p>
+        <a href="https://chromewebstore.google.com" class="btn-primary">
+            <span>📦</span> Cài đặt miễn phí
+        </a>
+    </section>
+    
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-links">
+            <a href="#">Hướng dẫn sử dụng</a>
+            <a href="#">Câu hỏi thường gặp</a>
+            <a href="#">Liên hệ hỗ trợ</a>
+            <a href="#">Chính sách bảo mật</a>
+            <a href="#">Điều khoản sử dụng</a>
+        </div>
+        <p class="copyright">© 2024 QR Scanner Pro. All rights reserved.</p>
+    </footer>
 </body>
 </html>
